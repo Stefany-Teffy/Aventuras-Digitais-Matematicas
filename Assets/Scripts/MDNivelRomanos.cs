@@ -144,6 +144,12 @@ public class MDNivelRomanos : MonoBehaviour
         }
         else if (valorTotal == numeroGerado && fases != 3)
         {
+            int estrelasGanhas = fases;
+            int estrelasDesativadas = 3 - estrelasGanhas;
+
+            gerenciadorEstrelas.DefinirPorNivel(nAtual, estrelasDesativadas);
+            Debug.Log($"FASE {fases} COMPLETA! Progresso salvo com {estrelasGanhas} estrela(s).");
+            
             fases++;
             tentativas = 4;
             Debug.Log("fase atual = " + fases);
