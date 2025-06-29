@@ -243,7 +243,7 @@ public class MDNivel : MonoBehaviour
         string nomeJogador = GerenciaJogador.instancia.nomeJogador; // Obtém o nome do jogador logado
         int valorAtual = PlayerPrefs.GetInt("nAtual_" + nomeJogador, 0);
 
-        PlayerPrefs.SetInt("bloqueado_" + nomeJogador + "_" + (valorAtual + 1), 0);
+        PlayerPrefs.SetInt("nat_bloqueado_" + nomeJogador + "_" + (valorAtual + 1), 0);
         Debug.Log("Nível atual antes: " + valorAtual);
 
 

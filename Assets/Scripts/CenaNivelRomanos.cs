@@ -10,7 +10,7 @@ public class CenaNivelRomanos : MonoBehaviour
         // Verifica e inicializa os valores necessários para cada nível
         for (int i = 1; i <= 12; i++)
         {
-            string chaveBloqueado = "bloqueado_" + nomeJogador + "_" + i;
+            string chaveBloqueado = "rom_bloqueado_" + nomeJogador + "_" + i;
             string chaveEstrelas = "starRomDesNiveis_" + nomeJogador + "_" + i;
 
             if (!PlayerPrefs.HasKey(chaveBloqueado))
@@ -114,7 +114,7 @@ public class CenaNivelRomanos : MonoBehaviour
 
     private void DesbloquearNivelAtual(int nivel, string nomeJogador)
     {
-        string chaveBloqueado = "bloqueado_" + nomeJogador + "_" + nivel;
+        string chaveBloqueado = "rom_bloqueado_" + nomeJogador + "_" + nivel;
         PlayerPrefs.SetInt(chaveBloqueado, 0); // Desbloqueia o nível
         PlayerPrefs.Save();
 
@@ -163,7 +163,7 @@ public class CenaNivelRomanos : MonoBehaviour
 
     private void AtualizarEstadoBloqueio(GameObject nivelObj, int nivel, string nomeJogador)
     {
-        string chaveBloqueado = "bloqueado_" + nomeJogador + "_" + nivel;
+        string chaveBloqueado = "rom_bloqueado_" + nomeJogador + "_" + nivel;
 
         // Encontra o objeto "bloqueado" dentro do nível
         Transform bloqueadoTransform = nivelObj.transform.Find("Estrelas/bloqueado");
