@@ -11822,6 +11822,7 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 1159825622}
     fundoTextAmarelo: {fileID: 962573370}
     fundoTextVerde: {fileID: 1838259844}
+    iconSom: {fileID: 860078450}
   - nomeBloco: Bloco 2
     missoes: []
     botaoBloco: {fileID: 501269183}
@@ -11841,6 +11842,7 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 1521806955}
     fundoTextAmarelo: {fileID: 714448555}
     fundoTextVerde: {fileID: 447513882}
+    iconSom: {fileID: 1742460758}
   - nomeBloco: Bloco 3
     missoes: []
     botaoBloco: {fileID: 922236651}
@@ -11860,6 +11862,7 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 633514343}
     fundoTextAmarelo: {fileID: 1805120032}
     fundoTextVerde: {fileID: 669203027}
+    iconSom: {fileID: 1995304685}
   audioSource: {fileID: 675521602}
 --- !u!4 &2079240400
 Transform:

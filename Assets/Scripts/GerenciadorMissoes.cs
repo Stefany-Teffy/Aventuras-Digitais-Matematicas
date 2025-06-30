@@ -6,26 +6,27 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Missao
 {
-    public string nome; 
-    public string descricao; 
-    public bool concluida; 
-    public bool ativa; 
-    public string chavePlayerPrefs; 
-    public int estrelasNecessarias; 
+    public string nome;
+    public string descricao;
+    public bool concluida;
+    public bool ativa;
+    public string chavePlayerPrefs;
+    public int estrelasNecessarias;
     public AudioClip audio;
 }
 
 [System.Serializable]
 public class BlocoMissoes
 {
-    public string nomeBloco; 
-    public List<Missao> missoes = new List<Missao>(); 
-    public GameObject botaoBloco; 
-    public TextMeshProUGUI textoBotao; 
-    public TextMeshProUGUI percentualBotao; 
+    public string nomeBloco;
+    public List<Missao> missoes = new List<Missao>();
+    public GameObject botaoBloco;
+    public TextMeshProUGUI textoBotao;
+    public TextMeshProUGUI percentualBotao;
     public TextMeshProUGUI descricaoText;
-    public GameObject fundoEscuro; 
-    public GameObject fundoRosa; 
+    public GameObject iconSom;
+    public GameObject fundoEscuro;
+    public GameObject fundoRosa;
     public GameObject fundoVerde;
     public GameObject popUp;
     public GameObject emblema;
@@ -56,7 +57,7 @@ public class GerenciadorMissoes : MonoBehaviour
 
         InicializarBlocosMissoes();
         VerificarMissoes();
-        CarregarEstadoMissaoAtiva();
+        DeterminarMissaoAtivaCorreta();
         AtualizarUI();
     }
 
@@ -66,165 +67,86 @@ public class GerenciadorMissoes : MonoBehaviour
 
         if (blocosMissoes.Count > 0)
         {
+            // Bloco 1
             BlocoMissoes bloco1 = blocosMissoes[0];
-
             bloco1.missoes = new List<Missao>
             {
-                new Missao
-                {
-                    nome = "Missão 1",
-                    descricao = "Jogue o nível 1 (unidades) e conquiste no mínimo 1 estrela.",
-                    chavePlayerPrefs = "Bloco1_Missao1Concluida_" + nomeJogador,
-                    estrelasNecessarias = 1,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco1") 
-                },
-                new Missao
-                {
-                    nome = "Missão 2",
-                    descricao = "Jogue o nível 2 (dezenas) e conquiste no mínimo 2 estrelas.",
-                    chavePlayerPrefs = "Bloco1_Missao2Concluida_" + nomeJogador,
-                    estrelasNecessarias = 2,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco1")
-                },
-                new Missao
-                {
-                    nome = "Missão 3",
-                    descricao = "Jogue o nível 3 (centenas) e conquiste o máximo de estrelas.",
-                    chavePlayerPrefs = "Bloco1_Missao3Concluida_" + nomeJogador,
-                    estrelasNecessarias = 3,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco1")
-                }
+                new Missao { nome = "Missão 1", descricao = "Jogue o nível 1 (unidades) e conquiste no mínimo 1 estrela.", chavePlayerPrefs = $"Bloco1_Missao1Concluida_{nomeJogador}", estrelasNecessarias = 1, audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco1") },
+                new Missao { nome = "Missão 2", descricao = "Jogue o nível 2 (dezenas) e conquiste no mínimo 2 estrelas.", chavePlayerPrefs = $"Bloco1_Missao2Concluida_{nomeJogador}", estrelasNecessarias = 2, audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco1") },
+                new Missao { nome = "Missão 3", descricao = "Jogue o nível 3 (centenas) e conquiste o máximo de estrelas.", chavePlayerPrefs = $"Bloco1_Missao3Concluida_{nomeJogador}", estrelasNecessarias = 3, audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco1") }
             };
-
-            Debug.Log($"Bloco 1 inicializado com {bloco1.missoes.Count} missões.");
-
+            
+            // Bloco 2
             BlocoMissoes bloco2 = blocosMissoes[1];
-
             bloco2.missoes = new List<Missao>
             {
-                new Missao
-                {
-                    nome = "Missão 1",
-                    descricao = "Jogue o nível 4 (soma de unidades) e conquiste no mínimo 1 estrela.",
-                    chavePlayerPrefs = "Bloco2_Missao1Concluida_" + nomeJogador,
-                    estrelasNecessarias = 1,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco2")
-                },
-                new Missao
-                {
-                    nome = "Missão 2",
-                    descricao = "Jogue o nível 5 (soma de dezenas) e conquiste no mínimo 2 estrelas.",
-                    chavePlayerPrefs = "Bloco2_Missao2Concluida_" + nomeJogador,
-                    estrelasNecessarias = 2,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco2")
-                },
-                new Missao
-                {
-                    nome = "Missão 3",
-                    descricao = "Jogue o nível 6 (soma de centenas) e conquiste o máximo de estrelas.",
-                    chavePlayerPrefs = "Bloco2_Missao3Concluida_" + nomeJogador,
-                    estrelasNecessarias = 3,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco2")
-                }
+                new Missao { nome = "Missão 1", descricao = "Jogue o nível 4 (soma de unidades) e conquiste no mínimo 1 estrela.", chavePlayerPrefs = $"Bloco2_Missao1Concluida_{nomeJogador}", estrelasNecessarias = 1, audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco2") },
+                new Missao { nome = "Missão 2", descricao = "Jogue o nível 5 (soma de dezenas) e conquiste no mínimo 2 estrelas.", chavePlayerPrefs = $"Bloco2_Missao2Concluida_{nomeJogador}", estrelasNecessarias = 2, audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco2") },
+                new Missao { nome = "Missão 3", descricao = "Jogue o nível 6 (soma de centenas) e conquiste o máximo de estrelas.", chavePlayerPrefs = $"Bloco2_Missao3Concluida_{nomeJogador}", estrelasNecessarias = 3, audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco2") }
             };
 
-            Debug.Log($"Bloco 2 inicializado com {bloco2.missoes.Count} missões.");
-
+            // Bloco 3
             BlocoMissoes bloco3 = blocosMissoes[2];
-
             bloco3.missoes = new List<Missao>
             {
-                new Missao
-                {
-                    nome = "Missão 1",
-                    descricao = "Jogue o nível 7 (subtração de unidades) e conquiste no mínimo 1 estrela.",
-                    chavePlayerPrefs = "Bloco3_Missao1Concluida_" + nomeJogador,
-                    estrelasNecessarias = 1,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco3")
-                },
-                new Missao
-                {
-                    nome = "Missão 2",
-                    descricao = "Jogue o nível 8 (subtração de dezenas) e conquiste no mínimo 2 estrelas.",
-                    chavePlayerPrefs = "Bloco3_Missao2Concluida_" + nomeJogador,
-                    estrelasNecessarias = 2,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco3")
-                },
-                new Missao
-                {
-                    nome = "Missão 3",
-                    descricao = "Jogue o nível 9 (subtração de centenas) e conquiste o máximo de estrelas.",
-                    chavePlayerPrefs = "Bloco3_Missao3Concluida_" + nomeJogador,
-                    estrelasNecessarias = 3,
-                    audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco3")
-                }
+                new Missao { nome = "Missão 1", descricao = "Jogue o nível 7 (subtração de unidades) e conquiste no mínimo 1 estrela.", chavePlayerPrefs = $"Bloco3_Missao1Concluida_{nomeJogador}", estrelasNecessarias = 1, audio = Resources.Load<AudioClip>("Sounds/sommissao1bloco3") },
+                new Missao { nome = "Missão 2", descricao = "Jogue o nível 8 (subtração de dezenas) e conquiste no mínimo 2 estrelas.", chavePlayerPrefs = $"Bloco3_Missao2Concluida_{nomeJogador}", estrelasNecessarias = 2, audio = Resources.Load<AudioClip>("Sounds/sommissao2bloco3") },
+                new Missao { nome = "Missão 3", descricao = "Jogue o nível 9 (subtração de centenas) e conquiste o máximo de estrelas.", chavePlayerPrefs = $"Bloco3_Missao3Concluida_{nomeJogador}", estrelasNecessarias = 3, audio = Resources.Load<AudioClip>("Sounds/sommissao3bloco3") }
             };
-
-            Debug.Log($"Bloco 3 inicializado com {bloco3.missoes.Count} missões.");
-        }
-        else
-        {
-            Debug.LogError("Nenhum bloco de missões configurado no Inspector.");
         }
     }
 
     private void VerificarMissoes()
     {
-        Debug.Log("Verificando missões...");
         foreach (var bloco in blocosMissoes)
         {
             foreach (var missao in bloco.missoes)
             {
-                if (PlayerPrefs.HasKey(missao.chavePlayerPrefs))
-                {
-                    missao.concluida = PlayerPrefs.GetInt(missao.chavePlayerPrefs, 0) == 1;
-                    Debug.Log($"Missão {missao.nome} concluída: {missao.concluida}");
-                }
-                else
-                {
-                    Debug.Log($"Missão {missao.nome} não encontrada no PlayerPrefs.");
-                    missao.concluida = false;
-                }
+                missao.concluida = PlayerPrefs.GetInt(missao.chavePlayerPrefs, 0) == 1;
             }
         }
     }
 
-  private void CarregarEstadoMissaoAtiva()
+    private void DeterminarMissaoAtivaCorreta()
     {
         foreach (var bloco in blocosMissoes)
         {
-            string chaveMissaoAtiva = $"MissaoAtiva_{bloco.nomeBloco}_{nomeJogador}";
             string chaveBlocoConcluido = $"Bloco{blocosMissoes.IndexOf(bloco) + 1}_Concluido_{nomeJogador}";
-
-            if (PlayerPrefs.HasKey(chaveBlocoConcluido) && PlayerPrefs.GetInt(chaveBlocoConcluido) == 1)
+            if (PlayerPrefs.GetInt(chaveBlocoConcluido, 0) == 1)
             {
                 bloco.missaoAtiva = -1; 
-                Debug.Log($"Bloco {bloco.nomeBloco} já foi concluído para o jogador {nomeJogador}.");
+                SalvarEstadoMissaoAtiva(bloco);
+                continue;
             }
-            else if (PlayerPrefs.HasKey(chaveMissaoAtiva))
+            bool encontrouAtiva = false;
+            for (int i = 0; i < bloco.missoes.Count; i++)
             {
-                bloco.missaoAtiva = PlayerPrefs.GetInt(chaveMissaoAtiva, 0);
-                Debug.Log($"Missão ativa carregada para o bloco {bloco.nomeBloco} do jogador {nomeJogador}: {bloco.missaoAtiva}");
+                if (!bloco.missoes[i].concluida)
+                {
+                    bloco.missaoAtiva = i;
+                    encontrouAtiva = true;
+                    break;
+                }
             }
-            else
+
+            if (!encontrouAtiva)
             {
-                Debug.Log($"Nenhuma missão ativa salva para o bloco {bloco.nomeBloco} do jogador {nomeJogador}. Usando valor padrão 0.");
-                bloco.missaoAtiva = 0;
+                bloco.missaoAtiva = bloco.missoes.Count - 1;
             }
+
+            SalvarEstadoMissaoAtiva(bloco);
         }
     }
-
+    
     private void SalvarEstadoMissaoAtiva(BlocoMissoes bloco)
     {
         string chaveMissaoAtiva = $"MissaoAtiva_{bloco.nomeBloco}_{nomeJogador}";
         PlayerPrefs.SetInt(chaveMissaoAtiva, bloco.missaoAtiva);
         PlayerPrefs.Save();
-        Debug.Log($"Missão ativa salva para o bloco {bloco.nomeBloco}: {bloco.missaoAtiva}");
     }
 
     private void AtualizarUI()
     {
-        Debug.Log("Atualizando UI...");
         foreach (var bloco in blocosMissoes)
         {
             AtualizarBotaoBloco(bloco);
@@ -233,196 +155,118 @@ public class GerenciadorMissoes : MonoBehaviour
 
     private void AtualizarBotaoBloco(BlocoMissoes bloco)
     {
-        if (bloco.botaoBloco != null)
+        if (bloco.botaoBloco == null) return;
+
+        bloco.fundoTextCinza.SetActive(bloco.missaoAtiva == 0 || bloco.missaoAtiva == -1);
+        bloco.fundoTextRosa.SetActive(bloco.missaoAtiva == 1);
+        bloco.fundoTextLaranja.SetActive(bloco.missaoAtiva == 2);
+        bloco.fundoTextAmarelo.SetActive(bloco.missaoAtiva == 3);
+        bloco.fundoTextVerde.SetActive(bloco.missaoAtiva == 4);
+
+        bloco.fundoEscuro.SetActive(false);
+        bloco.fundoRosa.SetActive(false);
+        bloco.fundoVerde.SetActive(false);
+
+        if (bloco.missaoAtiva == -1)
         {
-            Debug.Log($"Atualizando botão do bloco: {bloco.nomeBloco}");
-
-            bloco.fundoEscuro.SetActive(false);
-            bloco.fundoRosa.SetActive(false);
-            bloco.fundoVerde.SetActive(false);
-            bloco.fundoTextCinza.SetActive(false);
-            bloco.fundoTextRosa.SetActive(false);
-            bloco.fundoTextLaranja.SetActive(false);
-            bloco.fundoTextAmarelo.SetActive(false);
-            bloco.fundoTextVerde.SetActive(false);
-            
-                switch(bloco.missaoAtiva){
-                    case 0: 
-                    bloco.fundoTextCinza.SetActive(true);
-                    Debug.Log("Fundo da missão 1 ativado!");
-                    break;
-
-                    case 1: 
-                    bloco.fundoTextRosa.SetActive(true);
-                    Debug.Log("Fundo da missão 2 ativado!");
-                    break;
-
-                    case 2: 
-                    bloco.fundoTextLaranja.SetActive(true);
-                    Debug.Log("Fundo da missão 3 ativado!");
-                    break;
-
-                    case 3:
-                    bloco.fundoTextAmarelo.SetActive(true);
-                    Debug.Log("Fundo da missão 4 ativado!");
-                    break;
-
-                    case 4: 
-                    bloco.fundoTextVerde.SetActive(true);
-                    Debug.Log("Fundo da missão 5 ativado!");
-                    break;
-
-                    default: 
-                    bloco.fundoTextCinza.SetActive(true);
-                    Debug.Log("Todas as missões completas!");
-                    break;
-                }
-
-            if (bloco.missaoAtiva == -1)
+            bloco.botaoBloco.SetActive(false);
+            bloco.emblema.SetActive(false);
+            bloco.descricaoText.text = "Todas as missões desse bloco completas!";
+            if (bloco.iconSom != null)
             {
-                Debug.Log("Todas as missões do bloco concluídas.");
-                bloco.botaoBloco.SetActive(false);
-                bloco.emblema.SetActive(false);
-                bloco.descricaoText.text = "Todas as missões desse bloco completas!";
+                bloco.iconSom.SetActive(false);
             }
-            else if (bloco.missaoAtiva >= 0 && bloco.missaoAtiva < bloco.missoes.Count)
+        }
+        else if (bloco.missaoAtiva >= 0 && bloco.missaoAtiva < bloco.missoes.Count)
+        {
+            if (bloco.iconSom != null)
             {
-                Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
-                Debug.Log($"Missão atual: {missaoAtual.nome}, Concluída: {missaoAtual.concluida}");
+                bloco.iconSom.SetActive(true);
+            }
+            Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
+            bloco.descricaoText.text = missaoAtual.descricao;
 
-                if (bloco.descricaoText != null)
+            int indiceBlocoParaAudio = blocosMissoes.IndexOf(bloco);
+            bloco.descricaoText.GetComponent<Button>().onClick.RemoveAllListeners();
+            bloco.descricaoText.GetComponent<Button>().onClick.AddListener(() => TocarAudioMissaoAtiva(indiceBlocoParaAudio));
+
+            if (!missaoAtual.concluida)
+            {
+                // ---- MISSÃO ATIVA, MAS NÃO CONCLUÍDA ----
+                bloco.fundoEscuro.SetActive(true);
+                bloco.textoBotao.text = "Completar";
+                
+                int indiceBloco = blocosMissoes.IndexOf(bloco);
+                int numeroDoNivel = (indiceBloco * 3) + (bloco.missaoAtiva + 1);
+                string chaveEstrelasNivel = $"starDesNiveis_{nomeJogador}_{numeroDoNivel}";
+                int estrelasObtidas = 3 - PlayerPrefs.GetInt(chaveEstrelasNivel, 3);
+                
+                float progresso = 0f;
+                if (missaoAtual.estrelasNecessarias > 0)
                 {
-                    bloco.descricaoText.text = missaoAtual.descricao;
-                    Debug.Log($"Descrição da missão atual: {missaoAtual.descricao}");
-                    int indiceBloco = blocosMissoes.IndexOf(bloco);
-                    bloco.descricaoText.GetComponent<Button>().onClick.AddListener(() => {
-                    TocarAudioMissaoAtiva(indiceBloco);
-                    });
+                    progresso = (Mathf.Min((float)estrelasObtidas, missaoAtual.estrelasNecessarias) / missaoAtual.estrelasNecessarias) * 100f;
                 }
+                bloco.percentualBotao.text = $"{progresso:F0}%";
+                
+                bloco.botaoBloco.GetComponent<Button>().onClick.RemoveAllListeners();
+                bloco.botaoBloco.GetComponent<Button>().onClick.AddListener(() => changeScenes.proxCena("Naturais"));
+            }
+            else
+            {
+                // ---- MISSÃO CONCLUÍDA, AGUARDANDO AÇÃO ----
+                bloco.percentualBotao.text = "100%";
+                
+                int indiceBlocoParaClique = blocosMissoes.IndexOf(bloco);
+                bloco.botaoBloco.GetComponent<Button>().onClick.RemoveAllListeners();
+                bloco.botaoBloco.GetComponent<Button>().onClick.AddListener(() => BotaoBlocoClicado(indiceBlocoParaClique));
 
-                if (!missaoAtual.concluida)
+                if (bloco.missaoAtiva < bloco.missoes.Count - 1)
                 {
-                    Debug.Log("Missão não concluída. Ativando fundo escuro.");
-                    bloco.fundoEscuro.SetActive(true);
-                    bloco.textoBotao.text = "Completar";
-                    bloco.percentualBotao.text = "0%";
-                    //bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = false;
-                    bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                    bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
-                    bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
-                    Debug.Log("Botão Completar clicado. Redirecionando para a cena Naturais.");
-                    changeScenes.proxCena("Naturais"); 
-                    });
+                    bloco.fundoRosa.SetActive(true);
+                    bloco.textoBotao.text = "Próxima";
                 }
                 else
                 {
-                    // Missão concluída
-                    if (bloco.missaoAtiva < bloco.missoes.Count - 1)
-                    {
-                        // Existem mais missões após esta
-                        Debug.Log("Missão concluída. Ativando fundo rosa.");
-                        bloco.fundoRosa.SetActive(true);
-                        bloco.textoBotao.text = "Próxima";
-                        bloco.percentualBotao.text = "100%";
-                        //bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
-                        Debug.Log("Botão Próxima clicado. Chamando BotaoBlocoClicado.");
-                        BotaoBlocoClicado(blocosMissoes.IndexOf(bloco));
-                        });
-                    }
-                    else
-                    {
-                        // Última missão concluída
-                        Debug.Log("Todas as missões do bloco concluídas. Ativando fundo verde.");
-                        bloco.fundoVerde.SetActive(true);
-                        bloco.textoBotao.text = "Concluído";
-                        bloco.percentualBotao.text = "100%";
-                        //.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().interactable = true;
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
-                        bloco.botaoBloco.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
-                        Debug.Log("Botão Concluído clicado. Chamando BotaoBlocoClicado.");
-                        BotaoBlocoClicado(blocosMissoes.IndexOf(bloco));
-                        });
-                    }
+                    bloco.fundoVerde.SetActive(true);
+                    bloco.textoBotao.text = "Concluído";
                 }
             }
-        }
-        else
-        {
-            Debug.LogError("Botão do bloco não atribuído.");
-        }
-    }
-
-    private void DefinirMissaoAtiva(int indiceBloco)
-    {
-        var bloco = blocosMissoes[indiceBloco];
-
-        if (bloco.missoes.Count > 0)
-        {
-            bool todasConcluidas = true;
-
-            for (int i = 0; i < bloco.missoes.Count; i++)
-            {
-                if (!bloco.missoes[i].concluida)
-                {
-                    todasConcluidas = false;
-                    bloco.missaoAtiva = i; 
-                    Debug.Log($"Missão {i + 1} definida como ativa no bloco {bloco.nomeBloco}.");
-                    break;
-                }
-            }
-
-            if (todasConcluidas)
-            {
-                bloco.missaoAtiva = -1;
-                Debug.Log($"Todas as missões do bloco {bloco.nomeBloco} concluídas.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Nenhuma missão configurada no bloco.");
         }
     }
 
     public void BotaoBlocoClicado(int indiceBloco)
     {
-        if (indiceBloco >= 0 && indiceBloco < blocosMissoes.Count)
+        if (indiceBloco < 0 || indiceBloco >= blocosMissoes.Count) return;
+        
+        var bloco = blocosMissoes[indiceBloco];
+        if (bloco.missaoAtiva < 0 || bloco.missaoAtiva >= bloco.missoes.Count) return;
+
+        Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
+
+        if (missaoAtual.concluida)
         {
-            var bloco = blocosMissoes[indiceBloco];
-
-            if (bloco.missaoAtiva >= 0 && bloco.missaoAtiva < bloco.missoes.Count)
+            if (bloco.missaoAtiva < bloco.missoes.Count - 1)
             {
-                Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
+                bloco.missaoAtiva++;
+                SalvarEstadoMissaoAtiva(bloco);
+                AtualizarUI();
+            }
+            else
+            {
+                string chaveBlocoConcluido = $"Bloco{indiceBloco + 1}_Concluido_{nomeJogador}";
+                PlayerPrefs.SetInt(chaveBlocoConcluido, 1);
+                PlayerPrefs.SetInt($"EmblemaBloco{indiceBloco + 1}Concluido", 1); 
+                PlayerPrefs.Save();
 
-                if (missaoAtual.concluida)
-                {
-                    if (bloco.missaoAtiva < bloco.missoes.Count - 1)
-                    {
-                        // Avança para a próxima missão apenas se o botão "Próxima" for clicado
-                        bloco.missaoAtiva++;
-                        Debug.Log($"Avançando para a missão {bloco.missaoAtiva + 1}.");
-                        SalvarEstadoMissaoAtiva(bloco);
-                        AtualizarUI();
-                    }
-                    else
-                    {
-                        Debug.Log("Todas as missões do bloco concluídas!");
-                        bloco.missaoAtiva = -1;
-                        bloco.botReturn.SetActive(false);
-                        bloco.coletar.SetActive(true);
-                        AbrirPopUpDoBloco(indiceBloco);
-                        AtualizarUI();
+                bloco.missaoAtiva = -1;
+                SalvarEstadoMissaoAtiva(bloco);
 
-                        PlayerPrefs.SetInt($"EmblemaBloco{indiceBloco + 1}Concluido", 1);
-                        PlayerPrefs.SetInt($"Bloco{indiceBloco + 1}_Concluido", 1);
-                        PlayerPrefs.Save();
-
-                        bloco.botaoBloco.SetActive(false);
-                    }
-                }
+                bloco.botReturn.SetActive(false);
+                bloco.coletar.SetActive(true);
+                bloco.botaoBloco.SetActive(false);
+                AbrirPopUpDoBloco(indiceBloco);
+            
+                AtualizarUI();
             }
         }
     }
@@ -430,58 +274,28 @@ public class GerenciadorMissoes : MonoBehaviour
     public void AbrirPopUpDoBloco(int indiceBloco)
     {
         var bloco = blocosMissoes[indiceBloco];
-        
-        if (bloco.popUp != null)
-        {
-            bloco.popUp.SetActive(true); 
-            Debug.Log($"Pop-up do bloco {bloco.nomeBloco} aberto!");
-        }
-        else
-        {
-            Debug.LogError("Pop-up não atribuído no bloco " + bloco.nomeBloco);
-        }
+        if (bloco.popUp != null) bloco.popUp.SetActive(true);
     }
 
     public void FecharPopUpDoBloco(int indiceBloco)
     {
         var bloco = blocosMissoes[indiceBloco];
-        
-        if (bloco.popUp != null)
-        {
-            bloco.popUp.SetActive(false); 
-            Debug.Log($"Pop-up do bloco {bloco.nomeBloco} fechado!");
-        }
-        else
-        {
-            Debug.LogError("Pop-up não atribuído no bloco " + bloco.nomeBloco);
-        }
+        if (bloco.popUp != null) bloco.popUp.SetActive(false);
     }
 
     public void TocarAudioMissaoAtiva(int indiceBloco)
     {
-        if (indiceBloco >= 0 && indiceBloco < blocosMissoes.Count)
+        if (indiceBloco < 0 || indiceBloco >= blocosMissoes.Count) return;
+
+        var bloco = blocosMissoes[indiceBloco];
+        if (bloco.missaoAtiva < 0 || bloco.missaoAtiva >= bloco.missoes.Count) return;
+
+        Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
+        if (missaoAtual.audio != null && audioSource != null)
         {
-            var bloco = blocosMissoes[indiceBloco];
-            
-            // Verifica se há uma missão ativa válida
-            if (bloco.missaoAtiva >= 0 && bloco.missaoAtiva < bloco.missoes.Count)
-            {
-                Missao missaoAtual = bloco.missoes[bloco.missaoAtiva];
-                
-                if (missaoAtual.audio != null && audioSource != null)
-                {
-                    audioSource.Stop(); 
-                    audioSource.clip = missaoAtual.audio;
-                    audioSource.Play();
-                    Debug.Log($"Tocando áudio da missão: {missaoAtual.nome}");
-                }
-                else
-                {
-                    Debug.LogWarning("Áudio da missão ou AudioSource não configurado!");
-                }
-            }
+            audioSource.Stop();
+            audioSource.clip = missaoAtual.audio;
+            audioSource.Play();
         }
     }
-
-    
 }
