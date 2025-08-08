@@ -2376,7 +2376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -115, y: -42.999985}
+  m_AnchoredPosition: {x: -115, y: -52}
   m_SizeDelta: {x: 194.44098, y: 49.213013}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &302429428
@@ -2402,14 +2402,15 @@ MonoBehaviour:
   m_text: "N\xEDveis"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39c3120ff3afdda4fa7965a73daf727b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 9acc29b282f0e7e4089166ea910ad625, type: 2}
+  m_sharedMaterial: {fileID: 6808344203654467542, guid: 39c3120ff3afdda4fa7965a73daf727b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3561745919
-  m_fontColor: {r: 1, g: 0.9295832, b: 0.29583332, a: 0.83}
+    rgba: 3559212419
+  m_fontColor: {r: 0.5137255, g: 0.27058825, b: 0.14509805, a: 0.83}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2421,7 +2422,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 2427
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

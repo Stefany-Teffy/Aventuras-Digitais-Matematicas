@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1366
     height: 677
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Simulator
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -167,7 +167,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 998
-    height: 289
+    height: 442
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -191,9 +191,9 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 299
-    height: 289
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+    height: 442
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -217,7 +217,7 @@ MonoBehaviour:
     x: 299
     y: 0
     width: 699
-    height: 289
+    height: 442
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 18}
@@ -242,9 +242,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 289
+    y: 442
     width: 998
-    height: 332
+    height: 179
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 14}
@@ -272,8 +272,8 @@ MonoBehaviour:
     y: 0
     width: 368
     height: 621
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -305,7 +305,7 @@ MonoBehaviour:
     x: 299
     y: 79
     width: 697
-    height: 348
+    height: 458
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -818,9 +818,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 766.3245, y: 679.40576, z: -1.2521958}
+    m_Target: {x: 6.635709, y: -19.595098, z: 1.8271854}
     speed: 2
-    m_Value: {x: 766.3245, y: 679.40576, z: -1.2521958}
+    m_Value: {x: 6.635709, y: -19.595098, z: 1.8271854}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -870,9 +870,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 410.19492
+    m_Target: 102.25767
     speed: 2
-    m_Value: 410.19492
+    m_Value: 102.25767
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -931,7 +931,7 @@ MonoBehaviour:
     x: 0
     y: 79
     width: 298
-    height: 263
+    height: 416
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -946,9 +946,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 828e0000
-      m_LastClickedID: 36482
-      m_ExpandedIDs: d2e8ffffaee9ffff0cecffffcaf3ffff1cfbffff168500005485000060850000b6850000128600005c890000a4890000b4890000ac8d0000
+      m_SelectedIDs: b67e0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 2e64ffff206cffff2e7cffffaeb5ffff94d2fffffed7ffff2ee0ffff2ae8ffff9af9ffff1cfbffff52880000e4880000f4880000de890000de8d00006e8e00007e8e00009e920000d0920000e0920000ee9200001a9600003096000016970000bad90000f8d9000004da0000b6da00009ce80000a6e80000fae8000044e90000f6e90000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -996,9 +996,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 368
+    y: 521
     width: 997
-    height: 306
+    height: 153
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1021,7 +1021,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Figma/Fonts
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1031,16 +1031,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 65
   m_LastFolders:
-  - Assets/Figma/Fonts
+  - Assets/Scenes
   m_LastFoldersGridSize: 65
   m_LastProjectPath: C:\Users\Lenovo\OneDrive\Documentos\versaoTCC\versaoTCC
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 40860000
-    m_LastClickedID: 34368
-    m_ExpandedIDs: 000000003283000098830000
+    scrollPos: {x: 0, y: 81}
+    m_SelectedIDs: 8c7e0000
+    m_LastClickedID: 32396
+    m_ExpandedIDs: 00000000207e0000867e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1069,7 +1069,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000032830000
+    m_ExpandedIDs: 00000000207e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1098,7 +1098,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300005a620000445600008a650000927b0000b4ab0000caab0000c6ab00002a5a0000d2550000825b000002750000fc5800008e5b0000e45a0000e2540000c65d00000e560000ca540000d4540000d0540000be5c0000ce540000d2540000ae630000d86100006a5a000008560000585a0000525a0000966600003a560000525600007c5a00008e59000074570000d4580000206b0000d4650000e06900006c5900000a8b000054860000de500100c0500100a2900000cc8f00009c8500000281000062810000ce8100000000000092890000a080000032800000d6800000
+    m_ExpandedInstanceIDs: c62300005a620000445600008a650000927b0000b4ab0000caab0000c6ab00002a5a0000d2550000825b000002750000fc5800008e5b0000e45a0000e2540000c65d00000e560000ca540000d4540000d0540000be5c0000ce540000d2540000ae630000d86100006a5a000008560000585a0000525a0000966600003a560000525600007c5a00008e59000074570000d4580000206b0000d4650000e06900006c5900000a8b000054860000de500100c0500100a2900000cc8f00009c8500000281000062810000ce81000092890000a080000032800000d680000000000000b0870000549700008e980000ca7f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1275,7 +1275,7 @@ MonoBehaviour:
     x: 299
     y: 79
     width: 697
-    height: 263
+    height: 416
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1311,7 +1311,7 @@ MonoBehaviour:
     - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
     pluginStates:
     - '{}'
-    scale: 20
+    scale: 28
     fitToScreenEnabled: 1
     rotationDegree: 270
     highlightSafeAreaEnabled: 0
