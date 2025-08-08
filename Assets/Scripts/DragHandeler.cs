@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// ararstar e soltar
 public class DragHandeler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
 	public static GameObject itemBeingDragged;
@@ -19,8 +18,7 @@ public class DragHandeler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 		itemBeingDragged = gameObject;
 		startPosition = transform.position;
 		startParent = transform.parent;
-		//GetComponent<CanvasGroup> ().blocksRaycasts = false;
-
+		GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 
 	#endregion
@@ -38,39 +36,33 @@ public class DragHandeler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 	public void OnEndDrag (PointerEventData eventData)
 	{
+		itemBeingDragged = null;
+		GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
 		if (transform.parent.tag == "lixo") {
-			
-			if (startParent.tag == "1" || startParent.tag == "10" || startParent.tag == "100") {
-				Instantiate (transform, startParent);
-				transform.name = transform.name.Replace("(Clone)", "");
-				transform.name.Trim();
-			}
-			Destroy (itemBeingDragged);
+			Destroy(gameObject);
 		}
-		if (startParent.tag == "1" && startParent.childCount == 0) {
-			Transform blocoNovo = Instantiate(b1, startParent).transform;
-			//blocoNovo.name = blocoNovo.name.Replace("(Clone)", "");
-			blocoNovo.name.Trim();
-		} else if (startParent.tag == "10" && startParent.childCount == 0) {
-			Transform blocoNovo = Instantiate(b10, startParent).transform;
-			blocoNovo.name = blocoNovo.name.Replace("(Clone)", "");
-			blocoNovo.name.Trim();
-		} else if (startParent.tag == "100" && startParent.childCount == 0) {
-			Transform blocoNovo = Instantiate(b100, startParent).transform;
-			blocoNovo.name = blocoNovo.name.Replace("(Clone)", "");
-			blocoNovo.name.Trim();
+		
+		if (transform.parent == startParent) {
+			transform.position = startPosition;
 		}
-			itemBeingDragged = null;
-			GetComponent<CanvasGroup> ().blocksRaycasts = true;
-		if (transform.parent == startParent && transform.parent.tag!="lixo") {
-				transform.position = startPosition;
+
+		// Garante que uma nova peça seja criada no slot de origem se ele ficar vazio
+		if (startParent.childCount == 0)
+		{
+			if (startParent.tag == "1") {
+				Transform blocoNovo = Instantiate(b1, startParent).transform;
+				blocoNovo.localScale = Vector3.one; 
+			} else if (startParent.tag == "10") {
+				Transform blocoNovo = Instantiate(b10, startParent).transform;
+				blocoNovo.localScale = Vector3.one; 
+			} else if (startParent.tag == "100") {
+				Transform blocoNovo = Instantiate(b100, startParent).transform;
+				blocoNovo.localScale = Vector3.one; 
 			}
+		}
 
 		ExecuteEvents.ExecuteHierarchy < IHasChanged> (gameObject, null, (x, y) => x.HasChanged ());
-
-
-
 	}
 
 	#endregion
