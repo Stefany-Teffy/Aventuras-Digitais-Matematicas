@@ -8,6 +8,8 @@ public class MDNivel : MonoBehaviour
 {
     public AudioSource dicaRemoverSource;
     public AudioSource dicaAdicionarSource;
+    public AudioSource acertoFase;
+    public AudioSource vitoriaNivel;
     public Text inventoryText;
     public GameObject b100, b10, b1;
     public int valorTotal;
@@ -16,7 +18,7 @@ public class MDNivel : MonoBehaviour
     int numeroGerado2 = 0;
     int sorteio = 0;
     int tentativas, fases, nAtual; 
-    private HashSet<int> numerosGerados = new HashSet<int>(); // armazena elementos únicos sem duplicatas, escolhi o tipo int
+    private HashSet<int> numerosGerados = new HashSet<int>();
     Text geradoText;
 
     void Start()
@@ -35,31 +37,31 @@ public class MDNivel : MonoBehaviour
     {
         if (nAtual < 4)
         {
-            geradoText.text = "VALOR GERADO: " + numeroGerado.ToString();
+            geradoText.text = "OBJETIVO: " + numeroGerado.ToString();
         }
         else if (nAtual >= 4 && nAtual <= 6)
         {
-            geradoText.text = "VALOR GERADO: " + numeroGerado1.ToString() + "+" + numeroGerado2.ToString();
+            geradoText.text = "OBJETIVO: " + numeroGerado1.ToString() + "+" + numeroGerado2.ToString();
         }
         else if (nAtual >= 7 && nAtual <= 9)
         {
-            geradoText.text = "VALOR GERADO: " + numeroGerado1.ToString() + "-" + numeroGerado2.ToString();
+            geradoText.text = "OBJETIVO: " + numeroGerado1.ToString() + "-" + numeroGerado2.ToString();
             VisualizarNumero(numeroGerado1);
         }
         else if (nAtual >= 10 && nAtual <= 12)
         {
             if (sorteio == 0)
             {
-                geradoText.text = "VALOR GERADO: " + numeroGerado1.ToString() + "-" + numeroGerado2.ToString();
+                geradoText.text = "OBJETIVO: " + numeroGerado1.ToString() + "-" + numeroGerado2.ToString();
                 VisualizarNumero(numeroGerado1);
             }
             else if (sorteio == 1)
             {
-                geradoText.text = "VALOR GERADO: " + numeroGerado1.ToString() + "+" + numeroGerado2.ToString();
+                geradoText.text = "OBJETIVO: " + numeroGerado1.ToString() + "+" + numeroGerado2.ToString();
             }
             else
             {
-                geradoText.text = "VALOR GERADO: " + numeroGerado.ToString();
+                geradoText.text = "OBJETIVO: " + numeroGerado.ToString();
             }
         }
     }
@@ -176,48 +178,65 @@ public class MDNivel : MonoBehaviour
         tentativas--;
         GerenciadorEstrelas gerenciadorEstrelas = GameObject.Find("GerenciadorEstrelas").GetComponent<GerenciadorEstrelas>();
 
-        if (tentativas == 0)
+        if (valorTotal == numeroGerado)
         {
-            if (dicaRemoverSource.isPlaying)
-            dicaRemoverSource.Stop();
-            if (dicaAdicionarSource.isPlaying)
-            dicaAdicionarSource.Stop();
-            Placar.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
-        }
-        else if (valorTotal == numeroGerado && fases != 3)
-        {
-            int estrelasGanhas = fases;
-            int estrelasDesativadas = 3 - estrelasGanhas;
+            if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+            if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
 
-            gerenciadorEstrelas.DefinirPorNivel(nAtual, estrelasDesativadas);
-            Debug.Log($"FASE {fases} COMPLETA! Progresso salvo com {estrelasGanhas} estrela(s).");
+            if (fases < 3)
+            {
+                if (acertoFase != null) acertoFase.Play();
 
-            fases++;
-            tentativas = 4;
-            Debug.Log("fase atual = " + fases);
-            GerarNumero();
-            AtualizaAposDestruir();
-            AtualizarTextoGerado();
+                int estrelasGanhas = fases;
+                int estrelasDesativadas = 3 - estrelasGanhas;
+                gerenciadorEstrelas.DefinirPorNivel(nAtual, estrelasDesativadas);
+
+                fases++;
+                tentativas = 4;
+                AtualizaAposDestruir();
+                GerarNumero();
+                AtualizarTextoGerado();
+            }
+            else // Acertou a ÚLTIMA fase
+            {
+                StartCoroutine(VitoriaComAtrasoDeAudio(gerenciadorEstrelas));
+            }
         }
-        else if (valorTotal == numeroGerado && fases == 3)
-        {
-            if (dicaRemoverSource.isPlaying)
-            dicaRemoverSource.Stop();
-            if (dicaAdicionarSource.isPlaying)
-            dicaAdicionarSource.Stop();
-            Placar.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
-        }
-        else
+        else if (tentativas > 0)
         {
             if (valorTotal > numeroGerado)
             {
-                dicaRemoverSource.Play();
+                if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
+                if (!dicaRemoverSource.isPlaying) dicaRemoverSource.Play();
             }
             else
             {
-                dicaAdicionarSource.Play();
+                if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+                if (!dicaAdicionarSource.isPlaying) dicaAdicionarSource.Play();
             }
         }
+        else 
+        {
+            if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+            if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
+
+            Placar.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
+        }
+    }
+
+    private IEnumerator VitoriaComAtrasoDeAudio(GerenciadorEstrelas gerenciadorEstrelas)
+    {
+        if (vitoriaNivel != null && vitoriaNivel.clip != null)
+        {
+            vitoriaNivel.Play();
+            yield return new WaitForSeconds(vitoriaNivel.clip.length);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        Placar.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
     }
 
     private int CalcularValorTotal()
@@ -246,12 +265,11 @@ public class MDNivel : MonoBehaviour
 
     public void ProximoNivel()
     {
-        string nomeJogador = GerenciaJogador.instancia.nomeJogador; // Obtém o nome do jogador logado
+        string nomeJogador = GerenciaJogador.instancia.nomeJogador;
         int valorAtual = PlayerPrefs.GetInt("nAtual_" + nomeJogador, 0);
 
         PlayerPrefs.SetInt("nat_bloqueado_" + nomeJogador + "_" + (valorAtual + 1), 0);
         Debug.Log("Nível atual antes: " + valorAtual);
-
 
         if (valorAtual == 0) 
         {
@@ -310,7 +328,7 @@ public class MDNivel : MonoBehaviour
     {
         do
         {
-            sorteio = Random.Range(0, 3); // 0 = subtração, 1 = adição, 2 = representação
+            sorteio = Random.Range(0, 3);
 
             if (sorteio == 0)
             {

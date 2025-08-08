@@ -1,61 +1,68 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections; 
 
 public class botaoConfirma : MonoBehaviour
 {
+    [Header("Áudios de Feedback")]
     public AudioSource dicaRemoverSource;
     public AudioSource dicaAdicionarSource;
-    public int valorAtual;
-    public int valorComparacao;
-    public int valortotal;
+    
+    public AudioSource vitoriaSource; 
 
     public void VerificarResposta()
     {
-        Debug.Log("Botão de confirmar vitória clicado!");
-        valortotal = CalcularValorTotal();
+        int valortotal = CalcularValorTotal();
+        int respostaCorreta = 0;
+        bool respostaDefinida = false;
         
         if (changeScenes.nomeAnt == "op2")
         {
-            int respostaCorreta = Inventory.resposta;
-            if (valortotal == respostaCorreta)
-            {
-                ativar.ativarModal(); 
-            }
-            else
-            {
-                Debug.Log("Resposta incorreta");
-                if (valortotal > respostaCorreta)
-                {
-                    dicaRemoverSource.Play();
-                }
-                else
-                {
-                    dicaAdicionarSource.Play();
-                }
-            }
+            respostaCorreta = Inventory.resposta;
+            respostaDefinida = true;
         }
         else if (changeScenes.nomeAnt == "selecao")
         {
-            int numMaximo = numMax.num;
-            if (valortotal == numMaximo)
+            respostaCorreta = numMax.num;
+            respostaDefinida = true;
+        }
+
+        if (!respostaDefinida) return;
+
+        if (valortotal == respostaCorreta) // ACERTOU
+        {
+            if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+            if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
+            
+            StartCoroutine(VitoriaModoComAtrasoDeAudio());
+        }
+        else // ERROU
+        {
+            if (valortotal > respostaCorreta)
             {
-                ativar.ativarModal(); 
+                if (!dicaRemoverSource.isPlaying) dicaRemoverSource.Play();
             }
             else
             {
-                Debug.Log("Valor incorreto");
-                if (valortotal > numMaximo)
-                {
-                    dicaRemoverSource.Play();
-                }
-                else
-                {
-                    dicaAdicionarSource.Play();
-                }
-            } 
+                if (!dicaAdicionarSource.isPlaying) dicaAdicionarSource.Play();
+            }
         }
     }
 
+    private IEnumerator VitoriaModoComAtrasoDeAudio()
+    {
+        if (vitoriaSource != null)
+        {
+            vitoriaSource.Play();
+            yield return new WaitForSeconds(vitoriaSource.clip.length);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        ativar.ativarModal();
+    }
 
     private int CalcularValorTotal()
     {

@@ -80,7 +80,7 @@ public class Inventory : MonoBehaviour, IHasChanged {
 	{
 		if (changeScenes.nomeAnt == "op2")
 		{
-			opText.text = "OPERAÇÃO: " + GetOp2.operacao.ToString();
+			opText.text = "OBJETIVO: " + GetOp2.operacao.ToString();
 			if (GetOp2.opcao == 2)
 			{
 				slotfinal = GameObject.Find("SlotFinal").transform;
@@ -121,7 +121,7 @@ public class Inventory : MonoBehaviour, IHasChanged {
 		}
 		else if (changeScenes.nomeAnt == "selecao")
 		{
-			numText.text = "VALOR SELECIONADO: " + numMax.num.ToString();
+			numText.text = "OBJETIVO: " + numMax.num.ToString();
 		}
 		
 

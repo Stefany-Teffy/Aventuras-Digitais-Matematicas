@@ -9,6 +9,10 @@ public class MDNivelRomanos : MonoBehaviour
 {
     public AudioSource dicaRemoverSource;
     public AudioSource dicaAdicionarSource;
+    public AudioSource acertoFase;
+    
+    public AudioSource vitoriaNivel;
+
     public Text inventoryText;
     public GameObject b100, b10, b1;
     public int valorTotal;
@@ -40,7 +44,7 @@ public class MDNivelRomanos : MonoBehaviour
         if (nAtual <= 10)
         {
             string numeroEmRomanos = ConverterParaRomano(numeroGerado);
-            geradoText.text = "VALOR GERADO: " + numeroEmRomanos;
+            geradoText.text = "OBJETIVO: " + numeroEmRomanos;
         }
     
     }
@@ -128,54 +132,71 @@ public class MDNivelRomanos : MonoBehaviour
 
         return resultado;
     }
+    
     public void Verificar()
     {
         valorTotal = CalcularValorTotal();
         tentativas--;
         GerenciadorEstrelasRomanos gerenciadorEstrelas = GameObject.Find("GerenciadorEstrelasRomanos").GetComponent<GerenciadorEstrelasRomanos>();
 
-        if (tentativas == 0)
+        if (valorTotal == numeroGerado) // O jogador ACERTOU
         {
-            if (dicaRemoverSource.isPlaying)
-            dicaRemoverSource.Stop();
-            if (dicaAdicionarSource.isPlaying)
-            dicaAdicionarSource.Stop();
-            PlacarRomanos.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
-        }
-        else if (valorTotal == numeroGerado && fases != 3)
-        {
-            int estrelasGanhas = fases;
-            int estrelasDesativadas = 3 - estrelasGanhas;
+            if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+            if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
 
-            gerenciadorEstrelas.DefinirPorNivel(nAtual, estrelasDesativadas);
-            Debug.Log($"FASE {fases} COMPLETA! Progresso salvo com {estrelasGanhas} estrela(s).");
-            
-            fases++;
-            tentativas = 4;
-            Debug.Log("fase atual = " + fases);
-            GerarNumero();
-            AtualizaAposDestruir();
-            AtualizarTextoGerado();
+            if (fases < 3)
+            {
+                if (acertoFase != null) acertoFase.Play();
+
+                int estrelasGanhas = fases;
+                int estrelasDesativadas = 3 - estrelasGanhas;
+                gerenciadorEstrelas.DefinirPorNivel(nAtual, estrelasDesativadas);
+
+                fases++;
+                tentativas = 4;
+                AtualizaAposDestruir();
+                GerarNumero();
+                AtualizarTextoGerado();
+            }
+            else // Acertou a ÚLTIMA fase
+            {
+                StartCoroutine(VitoriaComAtrasoDeAudioRomanos(gerenciadorEstrelas));
+            }
         }
-        else if (valorTotal == numeroGerado && fases == 3)
-        {
-            if (dicaRemoverSource.isPlaying)
-            dicaRemoverSource.Stop();
-            if (dicaAdicionarSource.isPlaying)
-            dicaAdicionarSource.Stop();
-            PlacarRomanos.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
-        }
-        else
+        else if (tentativas > 0) // ERROU com tentativas
         {
             if (valorTotal > numeroGerado)
             {
-                dicaRemoverSource.Play();
+                if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
+                if (!dicaRemoverSource.isPlaying) dicaRemoverSource.Play();
             }
             else
             {
-                dicaAdicionarSource.Play();
+                if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+                if (!dicaAdicionarSource.isPlaying) dicaAdicionarSource.Play();
             }
         }
+        else // ERROU sem tentativas
+        {
+            if (dicaRemoverSource.isPlaying) dicaRemoverSource.Stop();
+            if (dicaAdicionarSource.isPlaying) dicaAdicionarSource.Stop();
+            
+            PlacarRomanos.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
+        }
+    }
+    private IEnumerator VitoriaComAtrasoDeAudioRomanos(GerenciadorEstrelasRomanos gerenciadorEstrelas)
+    {
+        if (vitoriaNivel != null)
+        {
+            vitoriaNivel.Play();
+            yield return new WaitForSeconds(vitoriaNivel.clip.length);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        PlacarRomanos.Ativar(gerenciadorEstrelas, valorTotal, numeroGerado, tentativas, fases, nAtual);
     }
 
     private int CalcularValorTotal()

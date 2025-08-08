@@ -11809,6 +11809,7 @@ MonoBehaviour:
     textoBotao: {fileID: 2015600168}
     percentualBotao: {fileID: 1428506903}
     descricaoText: {fileID: 579973004}
+    iconSom: {fileID: 860078450}
     fundoEscuro: {fileID: 1753767142}
     fundoRosa: {fileID: 642917569}
     fundoVerde: {fileID: 863227529}
@@ -11822,13 +11823,13 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 1159825622}
     fundoTextAmarelo: {fileID: 962573370}
     fundoTextVerde: {fileID: 1838259844}
-    iconSom: {fileID: 860078450}
   - nomeBloco: Bloco 2
     missoes: []
     botaoBloco: {fileID: 501269183}
     textoBotao: {fileID: 1792605795}
     percentualBotao: {fileID: 1007955026}
     descricaoText: {fileID: 1685944085}
+    iconSom: {fileID: 1742460758}
     fundoEscuro: {fileID: 746354271}
     fundoRosa: {fileID: 1393795323}
     fundoVerde: {fileID: 812955680}
@@ -11842,13 +11843,13 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 1521806955}
     fundoTextAmarelo: {fileID: 714448555}
     fundoTextVerde: {fileID: 447513882}
-    iconSom: {fileID: 1742460758}
   - nomeBloco: Bloco 3
     missoes: []
     botaoBloco: {fileID: 922236651}
     textoBotao: {fileID: 2137341934}
     percentualBotao: {fileID: 1196981932}
     descricaoText: {fileID: 474116229}
+    iconSom: {fileID: 1995304685}
     fundoEscuro: {fileID: 1090252154}
     fundoRosa: {fileID: 2079366156}
     fundoVerde: {fileID: 2131985141}
@@ -11862,7 +11863,6 @@ MonoBehaviour:
     fundoTextLaranja: {fileID: 633514343}
     fundoTextAmarelo: {fileID: 1805120032}
     fundoTextVerde: {fileID: 669203027}
-    iconSom: {fileID: 1995304685}
   audioSource: {fileID: 675521602}
 --- !u!4 &2079240400
 Transform:
