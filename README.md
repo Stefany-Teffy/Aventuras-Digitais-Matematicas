@@ -1,6 +1,6 @@
 # Aventuras Digitais Matemáticas
 
-**Jogo educativo 2D desenvolvido em Unity** que utiliza o conceito do **Material Dourado** (blocos base-10) para ensinar operações aritméticas a crianças de forma interativa e lúdica.
+**Jogo educativo 2D desenvolvido em Unity** que utiliza o conceito do **Material Dourado** (Maria Montessori) para ensinar operações aritméticas a crianças de forma interativa e lúdica.
 
 O jogador manipula blocos de unidade (1), dezena (10) e centena (100) por meio de **drag and drop**, construindo representações numéricas, resolvendo adições e subtrações — tudo com feedback visual e sonoro em tempo real.
 
